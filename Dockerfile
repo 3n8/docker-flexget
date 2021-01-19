@@ -19,13 +19,11 @@ RUN \
     adduser -u 100 -S -G flexget flexget && \
     \
     mkdir /config && \
-    mkdir /download && \
     \
     apk add --no-cache $DEPS $DEPS_BUILD && \
     pip install -U setuptools pip packaging
 
 VOLUME /config
-VOLUME /download
 ADD https://github.com/Flexget/Flexget/tarball/v${FLEXGET_VERSION} flexget.tar.gz
 
 RUN \
@@ -35,7 +33,8 @@ RUN \
     python3 setup.py install && \
     \
     pip install deluge-client && \
-    pip install transmissionrpc && \
+    pip install irc_bot && \
+    pip install qbittorrent-api && \
     \
     rm -rf /flexget /flexget.tar.gz && \
     apk del $DEPS_BUILD
